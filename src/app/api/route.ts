@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import * as crypto from "crypto"
 
@@ -41,7 +41,7 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   console.log("Signature verification passed");
-  revalidateTag("articles");
+  revalidatePath("/");
   console.log("Revalidated articles tag");
   
   return NextResponse.json({ message: "success" })
