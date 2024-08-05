@@ -3,20 +3,8 @@ import type { Blog, Tag } from "@/types/blog";
 import Link from "next/link";
 
 async function getData(): Promise<{ blogs: Blog[]; tags: Tag[] }> {
-  const blog = await client.get({
-    endpoint: "blog",
-    customRequestInit: {
-      // タグを設定
-      next: { tags: ["articles"] },
-    },
-  });
-  const tag = await client.get({
-    endpoint: "tag",
-    customRequestInit: {
-      // タグを設定
-      next: { tags: ["articles"] },
-    },
-  });
+  const blog = await client.get({ endpoint: "blog" });
+  const tag = await client.get({ endpoint: "tag" });
 
   // blog.contents.forEach((b: Blog) => {
   //   console.log(b.title)
