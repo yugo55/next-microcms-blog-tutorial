@@ -2,12 +2,7 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import * as crypto from "crypto"
 
-type Params = {
-  id: string;
-};
-
-export async function POST(request: Request, {params}: { params: Params }): Promise<Response> {
-  console.log("Received webhook request");
+export async function POST(request: Request): Promise<Response> {
   const bodyText = await request.text();
   const bodyBuffer = Buffer.from(bodyText, "utf-8");
 
@@ -44,10 +39,7 @@ export async function POST(request: Request, {params}: { params: Params }): Prom
     });
   }
 
-  console.log("Signature verification passed");
   revalidatePath("/");
-  revalidatePath(`/blog/${params.id}`)
-  console.log("Revalidated articles tag");
   
   return NextResponse.json({ message: "success" })
 }
